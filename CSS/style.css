@@ -22,5 +22,6 @@ img {
 }
 
 .images {
+  width: 100%;
   display: inline-block;
 }
