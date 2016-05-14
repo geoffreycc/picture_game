@@ -47,6 +47,7 @@ var productRanker = {
         console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i]);
       }
     }
+    productRanker.displayImages();
     // allProducts[event.target.src]
   },
   displayResults: function() { // After 15? clicks show button to render the results list in three columns
