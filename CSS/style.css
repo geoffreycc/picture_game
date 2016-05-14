@@ -14,3 +14,13 @@ main {
 footer {
   text-align: center;
 }
+
+img {
+  /*pictures are getting stretched out in a bad way right now*/
+  width: 315px;
+  height: 315px;
+}
+
+.images {
+  display: inline-block;
+}
