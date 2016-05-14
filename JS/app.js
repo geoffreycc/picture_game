@@ -20,6 +20,8 @@ var productRanker = {
   img1: document.getElementById('pic1'),
   img2: document.getElementById('pic2'),
   img3: document.getElementById('pic3'),
+  buttResults: document.getElementById('results'),
+  buttReset: document.getElementById('reset'),
   timeRun: 0,
   getRandomIndex: function(arr) { //generate a random number between 0 and 13
     return Math.floor(Math.random() * arr.length);
@@ -30,7 +32,7 @@ var productRanker = {
     var num3 = this.getRandomIndex(allProducts);
     console.log('num1 is ' + num1);
     this.img1.src = allProducts[num1].path; // TODO trim down this junk.
-    this.img1.name = allProducts[num1].name;
+    this.img1.name = allProducts[num1].name; // TODO try using src and .slice to trim off all the extra stuff
     this.img2.src = allProducts[num2].path;
     this.img2.name = allProducts[num2].name;
     this.img3.src = allProducts[num3].path;
@@ -40,14 +42,16 @@ var productRanker = {
     }
   },
   tallyClicks: function() { //keep track of number of votes on the instance's voteCount and on timesRun
-    this.timeRun ++;
     for (var i = 0; i < allProducts.length; i ++) {
       if (event.target.name === allProducts[i].name) {
-        allProducts[i].voteCount ++;
-        console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i]);
+        allProducts[i].voteCount += 1; // A picture that did not recieve a click is also getting 1 vote.
+        this.timeRun += 1; // This appears to be pretty broken. Not sure how yet.
+        productRanker.displayImages();
+        console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
+      } if (event.target.name === undefined) {
+        console.log('Something');
       }
     }
-    productRanker.displayImages();
     // allProducts[event.target.src]
   },
   displayResults: function() { // After 15? clicks show button to render the results list in three columns
