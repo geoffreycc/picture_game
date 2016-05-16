@@ -30,25 +30,21 @@ var productRanker = {
     var num1 = this.getRandomIndex(allProducts);
     var num2 = this.getRandomIndex(allProducts);
     var num3 = this.getRandomIndex(allProducts);
-    // console.log(allProducts[num1].path.length);
     this.img1.src = allProducts[num1].path; // TODO trim down this junk.
-    // console.log (this.img1.src.length);
-    // console.log (this.img1.src.slice(45));
     this.img1.name = allProducts[num1].name; // TODO try using src and .slice to trim off all the extra stuff
     this.img2.src = allProducts[num2].path;
     this.img2.name = allProducts[num2].name;
     this.img3.src = allProducts[num3].path;
     this.img3.name = allProducts[num3].name;
-    if (this.img1.src === this.img2.src || this.img1.src === this.img3.src || this.img2.src === this.img3.src) { // Might not be working anymore
+    if (this.img1.src === this.img2.src || this.img1.src === this.img3.src || this.img2.src === this.img3.src) {
       this.displayImages();
     }
   },
   tallyClicks: function() { //keep track of number of votes on the instance's voteCount and on timesRun
     for (var i = 0; i < allProducts.length; i ++) {
       if (event.target.name === allProducts[i].name) {
-        allProducts[i].voteCount += 1; // A picture that did not recieve a click is also getting 1 vote.
-        this.timeRun += 1; // This appears to be pretty broken. Not sure how yet.
-        // productRanker.displayImages();  // This may be what ruins the tally count !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        allProducts[i].voteCount += 1;
+        this.timeRun += 1;
         console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
       }
     } if (this.timeRun === 15) {
@@ -57,10 +53,6 @@ var productRanker = {
     } if (this.timeRun < 15) {
       this.displayImages();
     }
-    // if (event.target.name === undefined) {
-    //   console.log('Something');
-    // }
-    // allProducts[event.target.src]
   },
   displayResults: function() {
     // After 15? clicks show button to render the results list in three columns
@@ -72,16 +64,11 @@ var productRanker = {
     }
   },
   onClick: function() { //drives the events that occur when a click happens
-    productRanker.imageSec.addEventListener('click', function (event) { //Placeholder junk TESTING INSIDE ONCLICK!!!!!!!!!!!!!
+    productRanker.imageSec.addEventListener('click', function (event) {
       event.preventDefault();
-      // console.log('The event target name is ' + event.target.name);
       productRanker.tallyClicks();
-      // console.log('The timeRun is ' + productRanker.timeRun);
-      // console.log(event.target.src);
     });
   },
 };
-// productRanker.(some variable representing an html tag).addEventListener('click', productRanker.onClick);
-// productRanker.displayImages();
 productRanker.displayImages();
 productRanker.onClick();
