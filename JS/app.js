@@ -51,6 +51,11 @@ var productRanker = {
         // productRanker.displayImages();  // This may be what ruins the tally count !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
       }
+    } if (this.timeRun === 15) {
+      alert ("Testing");
+      // Trigger Button stuff
+    } if (this.timeRun < 15) {
+      this.displayImages();
     }
     // if (event.target.name === undefined) {
     //   console.log('Something');
