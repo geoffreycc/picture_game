@@ -16,22 +16,24 @@ function productMaker(arr) { // For loop and function call to create new instanc
 productMaker(productName);
 
 var productRanker = {
-  imageSec: document.getElementById('images'),  //May want to declare a bunch of stuff here. Have not been able to get this to work
+  imageSec: document.getElementById('images'),  //May want to declare a bunch of stuff here.
   img1: document.getElementById('pic1'),
   img2: document.getElementById('pic2'),
   img3: document.getElementById('pic3'),
+  resultsList: document.getElementById('resultList'),
+  // productLi: document.createElement('li'),
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
   timeRun: 0,
-  getRandomIndex: function(arr) { //generate a random number between 0 and 13
+  getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
-  displayImages: function() { //render three different images to page
+  displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
     var num2 = this.getRandomIndex(allProducts);
     var num3 = this.getRandomIndex(allProducts);
     this.img1.src = allProducts[num1].path; // TODO trim down this junk.
-    this.img1.name = allProducts[num1].name; // TODO try using src and .slice to trim off all the extra stuff
+    this.img1.name = allProducts[num1].name; // TODO try using .slice
     this.img2.src = allProducts[num2].path;
     this.img2.name = allProducts[num2].name;
     this.img3.src = allProducts[num3].path;
@@ -48,20 +50,23 @@ var productRanker = {
         console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
       }
     } if (this.timeRun === 15) {
-      alert ("Testing");
-      // Trigger Button stuff
+      //Remove event listener
+      this.showButton();
     } if (this.timeRun < 15) {
       this.displayImages();
     }
   },
   displayResults: function() {
-    // After 15? clicks show button to render the results list in three columns
-    // Use an ul list
+    for (product in allProducts) {
+      var liElm = document.createElement('li');
+      liElm.textContent = allProducts[product].name + ' has ' + allProducts[product].voteCount + ' votes.';
+      this.resultsList.appendChild(liElm);
+
+    }
+    // Render Ul in three columns and Reset button after click on Results button.
   },
   showButton: function() { //display the results button or the reset button
-    if (this.timeRun === 15) {
-      //Show results Button
-    }
+    this.buttResults.hidden = false;
   },
   onClick: function() { //drives the events that occur when a click happens
     productRanker.imageSec.addEventListener('click', function (event) {
