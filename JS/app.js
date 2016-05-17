@@ -38,21 +38,6 @@ var productRanker = {
       this.displayImages();
     }
   },
-  tallyClicks: function() {
-    for (var i = 0; i < allProducts.length; i ++) {
-      if (event.target.name === allProducts[i].name) {
-        allProducts[i].voteCount += 1;
-        this.timeRun += 1;
-        console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
-      }
-    } if (this.timeRun === 15) {
-      //Remove event listener
-      this.showButton();
-      productRanker.imageSec.removeEventListener('click', productRanker.onClick);
-    } if (this.timeRun < 15) {
-      this.displayImages();
-    }
-  },
   displayResults: function() {
     for (product in allProducts) {
       var liElm = document.createElement('li');
@@ -72,10 +57,23 @@ var productRanker = {
       });
     });
   },
+  tallyClicks: function() {
+    for (var i = 0; i < allProducts.length; i ++) {
+      if (event.target.name === allProducts[i].name) {
+        allProducts[i].voteCount += 1;
+        this.timeRun += 1;
+        console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
+      }
+    } if (this.timeRun === 15) {
+      this.showButton();
+      productRanker.imageSec.removeEventListener('click', productRanker.onClick);
+    } if (this.timeRun < 15) {
+      this.displayImages();
+    }
+  },
   onClick: function() {
     productRanker.tallyClicks();
   },
 };
 productRanker.displayImages();
 productRanker.imageSec.addEventListener('click', productRanker.onClick);
-productRanker.onClick();
