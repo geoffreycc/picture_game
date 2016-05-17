@@ -41,7 +41,7 @@ var productRanker = {
   displayResults: function() {
     for (product in allProducts) {
       var liElm = document.createElement('li');
-      liElm.textContent = allProducts[product].name + ' has ' + allProducts[product].voteCount + ' votes.';
+      liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
       this.resultsList.appendChild(liElm);
     }
   },
@@ -62,7 +62,6 @@ var productRanker = {
       if (event.target.name === allProducts[i].name) {
         allProducts[i].voteCount += 1;
         this.timeRun += 1;
-        console.log(allProducts[i].voteCount + ' is the voteCount for ' + allProducts[i].name);
       }
     } if (this.timeRun === 15) {
       this.showButton();
