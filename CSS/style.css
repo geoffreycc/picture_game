@@ -1,0 +1,36 @@
+body {
+  max-width: 960px;
+  margin: 0 auto;
+  color: white;
+  background-color: black;
+}
+
+header {
+  text-align: center;
+}
+
+main {
+
+}
+
+footer {
+  text-align: center;
+}
+
+img {
+  /*pictures are getting stretched out in a bad way right now*/
+  width: 315px;
+  height: 315px;
+}
+
+.images {
+  width: 100%;
+  display: inline-block;
+}
+
+ul {
+  text-align: center;
+  column-count: 3;
+  max-height: 100px;
+  list-style: none;
+}
