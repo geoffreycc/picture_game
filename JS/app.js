@@ -48,7 +48,7 @@ var productRanker = {
     } if (this.timeRun === 15) {
       //Remove event listener
       this.showButton();
-      // productRanker.imageSec.removeEventListener('click', this.onClick); //Broken
+      productRanker.imageSec.removeEventListener('click', productRanker.onClick);
     } if (this.timeRun < 15) {
       this.displayImages();
     }
@@ -73,13 +73,7 @@ var productRanker = {
     });
   },
   onClick: function() {
-    // productRanker.imageSec.addEventListener('click', function (event) {
-      event.preventDefault();
-      productRanker.tallyClicks();
-      // if (this.timeRun % 15 === 0) {
-      //   this.imageSec.removeEventListener('click', this.tallyClicks); // broken
-      // }
-    // });
+    productRanker.tallyClicks();
   },
 };
 productRanker.displayImages();
