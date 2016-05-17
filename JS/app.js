@@ -7,13 +7,17 @@ function Product(name) {
   this.path = 'images/' + name + '.jpg';
   allProducts.push(this);
 };
-
-function productMaker(arr) { // For loop and function call to create new instances  TODO Rework this function into an iffy
-  for (var p = 0; p < arr.length; p++){
-    var newProduct = new Product(arr[p]);
-  }
+//
+// function productMaker(arr) { // For loop and function call to create new instances  TODO Rework this function into an iffy for thing in things
+//   for (var p = 0; p < arr.length; p++){
+//     var newProduct = new Product(arr[p]);
+//   }
+// }
+// productMaker(productName);
+//
+for (product in productName) {
+  var newProduct = new Product(productName[product]);
 }
-productMaker(productName);
 
 var productRanker = {
   imageSec: document.getElementById('images'),  //May want to declare a bunch of stuff here.
@@ -61,12 +65,18 @@ var productRanker = {
       var liElm = document.createElement('li');
       liElm.textContent = allProducts[product].name + ' has ' + allProducts[product].voteCount + ' votes.';
       this.resultsList.appendChild(liElm);
-
     }
     // Render Ul in three columns and Reset button after click on Results button.
   },
   showButton: function() { //display the results button or the reset button
     this.buttResults.hidden = false;
+    this.buttResults.addEventListener('click', function (event) { // Not sure where to place this
+      event.preventDefault();
+      console.log('The button was pressed.');
+      productRanker.buttResults.hidden = true;
+      productRanker.buttReset.hidden = false;
+      productRanker.displayResults();
+    });
   },
   onClick: function() { //drives the events that occur when a click happens
     productRanker.imageSec.addEventListener('click', function (event) {
