@@ -39,11 +39,14 @@ var productRanker = {
     }
   },
   displayResults: function() {
+    var liTotal = document.createElement('li');
     for (product in allProducts) {
       var liElm = document.createElement('li');
       liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
       this.resultsList.appendChild(liElm);
     }
+    liTotal.textContent = productRanker.timeRun + ' Votes Total';
+    this.resultsList.appendChild(liTotal);
   },
   showButton: function() {
     this.buttResults.hidden = false;
@@ -63,10 +66,10 @@ var productRanker = {
         allProducts[i].voteCount += 1;
         this.timeRun += 1;
       }
-    } if (this.timeRun === 15) {
+    } if (this.timeRun % 15 === 0) {
       this.showButton();
       productRanker.imageSec.removeEventListener('click', productRanker.onClick);
-    } if (this.timeRun < 15) {
+    } if (this.timeRun % 15 !== 0) {
       this.displayImages();
     }
   },
