@@ -11,7 +11,6 @@ function Product(name) {
 for (product in productName) {
   var newProduct = new Product(productName[product]);
 }
-
 var productRanker = {
   imageSec: document.getElementById('images'),
   img1: document.getElementById('pic1'),
@@ -21,10 +20,10 @@ var productRanker = {
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
   timeRun: 0,
-  labels : [],
-  dataSets: [{
-    data: []
-  }], // Use these for the table?
+  // labels : [],
+  // dataSets: [{
+  //   data: []
+  // }], // Use these for the table?
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
@@ -54,25 +53,57 @@ var productRanker = {
   },
   displayTable: function() {
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart (ctx, {
-      type: 'bar',
-      data: {
-        labels: ['red', 'blue', 'orange', 'green', 'purple', 'pink'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 10, 4, 6, 9, 2]
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
+    // var myChart = new Chart (ctx, tableData, tableOptions);
+    var data = {
+      lables: [],
+      datasets: [
+        {
+          label: 'Number of Votes',
+          // backgroundColor: 'rgba(0, 0, 0, 0)',
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
         }
-      }
+      ]
+    };
+    var resultsChart = new Chart (ctx, {
+      type: 'bar',
+      data: data,
     });
+    // var tableData = {
+    //   labels: [],
+    //   datasets: [{
+    //     label: 'Number of Clicks',
+    //     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    // },
+    // var tableOptions = {
+    //   options: {
+    //     scales: {
+    //       yAxes: [{
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }]
+    //     }
+    //   }
+    // },
+      // {
+  //     type: 'bar',
+  //     data: {
+  //       labels: [], //This is for the image name
+  //       datasets: [{
+  //         label: '# of Votes',
+  //         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //This is for the vote number
+  //       }]
+  //     },
+  //     options: {
+  //       scales: {
+  //         yAxes: [{
+  //           ticks: {
+  //             beginAtZero: true
+  //           }
+  //         }]
+  //       }
+  //     }
+  //   });
   },
   showButton: function() {
     this.buttResults.hidden = false;
@@ -90,6 +121,7 @@ var productRanker = {
     for (var i = 0; i < allProducts.length; i ++) {
       if (event.target.name === allProducts[i].name) {
         allProducts[i].voteCount += 1;
+        // productRanker.displayTable.data.datasets[1].data[i].push(allProducts[i].voteCount); Here is the new Junk!
         this.timeRun += 1;
       }
     } if (this.timeRun % 15 === 0) {
