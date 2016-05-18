@@ -21,6 +21,10 @@ var productRanker = {
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
   timeRun: 0,
+  labels : [],
+  dataSets: [{
+    data: []
+  }], // Use these for the table?
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
@@ -47,6 +51,28 @@ var productRanker = {
     }
     liTotal.textContent = productRanker.timeRun + ' Votes Total';
     this.resultsList.appendChild(liTotal);
+  },
+  displayTable: function() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart (ctx, {
+      type: 'bar',
+      data: {
+        labels: ['red', 'blue', 'orange', 'green', 'purple', 'pink'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 10, 4, 6, 9, 2]
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
   },
   showButton: function() {
     this.buttResults.hidden = false;

@@ -34,3 +34,7 @@ ul {
   max-height: 100px;
   list-style: none;
 }
+
+canvas {
+  background-color: white;
+}
