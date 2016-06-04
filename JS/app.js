@@ -24,6 +24,11 @@ var productRanker = {
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
+  hideImages: function() {
+    this.img1.hidden = true;
+    this.img2.hidden = true;
+    this.img3.hidden = true;
+  },
   displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
     var num2 = this.getRandomIndex(allProducts);
@@ -116,6 +121,7 @@ var productRanker = {
       productRanker.buttResults.hidden = true;
       productRanker.buttReset.hidden = false;
       productRanker.displayResults();
+      productRanker.hideImages();
       productRanker.displayTable();
       productRanker.buttReset.addEventListener('click', function(event) {
         location.reload();
