@@ -24,10 +24,6 @@ var productRanker = {
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
-  updateLocalStorage: function() {
-    localStorage.setItem(JSON.stringify('allProducts', allProducts)); //testing
-    JSON.parse(localStorage.getItem('allProducts')); //testing
-  },
   displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
     var num2 = this.getRandomIndex(allProducts);
