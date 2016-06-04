@@ -18,7 +18,6 @@ footer {
 }
 
 img {
-  /*pictures are getting stretched out in a bad way right now*/
   width: 315px;
   height: 315px;
 }
@@ -34,7 +33,3 @@ ul {
   max-height: 100px;
   list-style: none;
 }
-
-/*canvas {
-  background-color: white;
-}*/

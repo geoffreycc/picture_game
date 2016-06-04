@@ -20,10 +20,6 @@ var productRanker = {
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
   timeRun: 0,
-  // labels : [],
-  // dataSets: [{
-  //   data: []
-  // }], // Use these for the table?
 
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
