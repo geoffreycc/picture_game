@@ -45,16 +45,6 @@ var productRanker = {
       this.displayImages();
     }
   },
-  displayResults: function() {
-    var liTotal = document.createElement('li');
-    for (var product in allProducts) {
-      var liElm = document.createElement('li');
-      liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
-      this.resultsList.appendChild(liElm);
-    }
-    liTotal.textContent = productRanker.timeRun + ' Votes Total';
-    this.resultsList.appendChild(liTotal);
-  },
   displayTable: function() {
     var labelsArr = [];
     var dataArr = [];
@@ -122,7 +112,6 @@ var productRanker = {
       event.preventDefault();
       productRanker.buttResults.hidden = true;
       productRanker.buttReset.hidden = false;
-      productRanker.displayResults();
       productRanker.hideImages();
       productRanker.displayTable();
       productRanker.buttReset.addEventListener('click', function(event) {
