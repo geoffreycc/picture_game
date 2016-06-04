@@ -16,6 +16,7 @@ var productRanker = {
   img1: document.getElementById('pic1'),
   img2: document.getElementById('pic2'),
   img3: document.getElementById('pic3'),
+  pickH2: document.getElementById('pick'),
   resultsList: document.getElementById('resultList'),
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
@@ -23,6 +24,12 @@ var productRanker = {
 
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
+  },
+  hideImages: function() {
+    this.img1.hidden = true;
+    this.img2.hidden = true;
+    this.img3.hidden = true;
+    this.pickH2.textContent = 'Results';
   },
   displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
@@ -37,16 +44,6 @@ var productRanker = {
     if (this.img1.src === this.img2.src || this.img1.src === this.img3.src || this.img2.src === this.img3.src) {
       this.displayImages();
     }
-  },
-  displayResults: function() {
-    var liTotal = document.createElement('li');
-    for (var product in allProducts) {
-      var liElm = document.createElement('li');
-      liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
-      this.resultsList.appendChild(liElm);
-    }
-    liTotal.textContent = productRanker.timeRun + ' Votes Total';
-    this.resultsList.appendChild(liTotal);
   },
   displayTable: function() {
     var labelsArr = [];
@@ -115,7 +112,7 @@ var productRanker = {
       event.preventDefault();
       productRanker.buttResults.hidden = true;
       productRanker.buttReset.hidden = false;
-      productRanker.displayResults();
+      productRanker.hideImages();
       productRanker.displayTable();
       productRanker.buttReset.addEventListener('click', function(event) {
         location.reload();
@@ -127,6 +124,7 @@ var productRanker = {
       if (event.target.name === allProducts[i].name) {
         allProducts[i].voteCount += 1;
         this.timeRun += 1;
+        localStorage.setItem('allProducts', JSON.stringify(allProducts)); //testing
       }
     } if (this.timeRun % 15 === 0) {
       this.showButton();
@@ -140,5 +138,6 @@ var productRanker = {
   },
 };
 
+allProducts = JSON.parse(localStorage.getItem('allProducts')); //testing
 productRanker.displayImages();
 productRanker.imageSec.addEventListener('click', productRanker.onClick);
