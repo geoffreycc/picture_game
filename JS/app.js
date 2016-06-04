@@ -24,6 +24,7 @@ var productRanker = {
   // dataSets: [{
   //   data: []
   // }], // Use these for the table?
+
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
@@ -43,7 +44,7 @@ var productRanker = {
   },
   displayResults: function() {
     var liTotal = document.createElement('li');
-    for (product in allProducts) {
+    for (var product in allProducts) {
       var liElm = document.createElement('li');
       liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
       this.resultsList.appendChild(liElm);
@@ -52,58 +53,49 @@ var productRanker = {
     this.resultsList.appendChild(liTotal);
   },
   displayTable: function() {
-    var ctx = document.getElementById('myChart').getContext('2d');
-    // var myChart = new Chart (ctx, tableData, tableOptions);
-    var data = {
-      lables: [],
-      datasets: [
-        {
-          label: 'Number of Votes',
-          // backgroundColor: 'rgba(0, 0, 0, 0)',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
-        }
-      ]
-    };
-    var resultsChart = new Chart (ctx, {
+    var labelsArr = [];
+    var dataArr = [];
+    var ctx = document.getElementById('myChart');
+    for (var product in allProducts) {
+      labelsArr.push(allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' '));
+      dataArr.push(allProducts[product].voteCount);
+    }
+    var myChart = new Chart(ctx, {
       type: 'bar',
-      data: data,
+      data: {
+        labels: labelsArr,
+        datasets: [{
+          label: '# of Votes',
+          data: dataArr,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
     });
-    // var tableData = {
-    //   labels: [],
-    //   datasets: [{
-    //     label: 'Number of Clicks',
-    //     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    // },
-    // var tableOptions = {
-    //   options: {
-    //     scales: {
-    //       yAxes: [{
-    //         ticks: {
-    //           beginAtZero: true
-    //         }
-    //       }]
-    //     }
-    //   }
-    // },
-      // {
-  //     type: 'bar',
-  //     data: {
-  //       labels: [], //This is for the image name
-  //       datasets: [{
-  //         label: '# of Votes',
-  //         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //This is for the vote number
-  //       }]
-  //     },
-  //     options: {
-  //       scales: {
-  //         yAxes: [{
-  //           ticks: {
-  //             beginAtZero: true
-  //           }
-  //         }]
-  //       }
-  //     }
-  //   });
   },
   showButton: function() {
     this.buttResults.hidden = false;
@@ -112,6 +104,7 @@ var productRanker = {
       productRanker.buttResults.hidden = true;
       productRanker.buttReset.hidden = false;
       productRanker.displayResults();
+      productRanker.displayTable();
       productRanker.buttReset.addEventListener('click', function(event) {
         location.reload();
       });
@@ -121,7 +114,6 @@ var productRanker = {
     for (var i = 0; i < allProducts.length; i ++) {
       if (event.target.name === allProducts[i].name) {
         allProducts[i].voteCount += 1;
-        // productRanker.displayTable.data.datasets[1].data[i].push(allProducts[i].voteCount); Here is the new Junk!
         this.timeRun += 1;
       }
     } if (this.timeRun % 15 === 0) {
@@ -135,5 +127,6 @@ var productRanker = {
     productRanker.tallyClicks();
   },
 };
+
 productRanker.displayImages();
 productRanker.imageSec.addEventListener('click', productRanker.onClick);
