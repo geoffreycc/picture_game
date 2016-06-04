@@ -11,7 +11,6 @@ function Product(name) {
 for (product in productName) {
   var newProduct = new Product(productName[product]);
 }
-
 var productRanker = {
   imageSec: document.getElementById('images'),
   img1: document.getElementById('pic1'),
@@ -21,6 +20,7 @@ var productRanker = {
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
   timeRun: 0,
+
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
@@ -40,13 +40,74 @@ var productRanker = {
   },
   displayResults: function() {
     var liTotal = document.createElement('li');
-    for (product in allProducts) {
+    for (var product in allProducts) {
       var liElm = document.createElement('li');
       liElm.textContent = allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' ') + ' has ' + allProducts[product].voteCount + ' votes.';
       this.resultsList.appendChild(liElm);
     }
     liTotal.textContent = productRanker.timeRun + ' Votes Total';
     this.resultsList.appendChild(liTotal);
+  },
+  displayTable: function() {
+    var labelsArr = [];
+    var dataArr = [];
+    var ctx = document.getElementById('myChart');
+    for (var product in allProducts) {
+      labelsArr.push(allProducts[product].name.charAt(0).toUpperCase() + allProducts[product].name.slice(1).replace(/_/g, ' '));
+      dataArr.push(allProducts[product].voteCount);
+    }
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labelsArr,
+        datasets: [{
+          label: '# of Votes',
+          data: dataArr,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+    });
   },
   showButton: function() {
     this.buttResults.hidden = false;
@@ -55,6 +116,7 @@ var productRanker = {
       productRanker.buttResults.hidden = true;
       productRanker.buttReset.hidden = false;
       productRanker.displayResults();
+      productRanker.displayTable();
       productRanker.buttReset.addEventListener('click', function(event) {
         location.reload();
       });
@@ -77,5 +139,6 @@ var productRanker = {
     productRanker.tallyClicks();
   },
 };
+
 productRanker.displayImages();
 productRanker.imageSec.addEventListener('click', productRanker.onClick);
