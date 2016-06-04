@@ -24,6 +24,10 @@ var productRanker = {
   getRandomIndex: function(arr) {
     return Math.floor(Math.random() * arr.length);
   },
+  updateLocalStorage: function() {
+    localStorage.setItem(JSON.stringify('allProducts', allProducts)); //testing
+    JSON.parse(localStorage.getItem('allProducts')); //testing
+  },
   displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
     var num2 = this.getRandomIndex(allProducts);
@@ -127,6 +131,7 @@ var productRanker = {
       if (event.target.name === allProducts[i].name) {
         allProducts[i].voteCount += 1;
         this.timeRun += 1;
+        localStorage.setItem('allProducts', JSON.stringify(allProducts)); //testing
       }
     } if (this.timeRun % 15 === 0) {
       this.showButton();
@@ -140,5 +145,6 @@ var productRanker = {
   },
 };
 
+allProducts = JSON.parse(localStorage.getItem('allProducts')); //testing
 productRanker.displayImages();
 productRanker.imageSec.addEventListener('click', productRanker.onClick);
