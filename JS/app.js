@@ -16,6 +16,7 @@ var productRanker = {
   img1: document.getElementById('pic1'),
   img2: document.getElementById('pic2'),
   img3: document.getElementById('pic3'),
+  pickH2: document.getElementById('pick'),
   resultsList: document.getElementById('resultList'),
   buttResults: document.getElementById('results'),
   buttReset: document.getElementById('reset'),
@@ -28,6 +29,7 @@ var productRanker = {
     this.img1.hidden = true;
     this.img2.hidden = true;
     this.img3.hidden = true;
+    this.pickH2.textContent = 'Results';
   },
   displayImages: function() {
     var num1 = this.getRandomIndex(allProducts);
